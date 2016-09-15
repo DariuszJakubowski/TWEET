@@ -26,7 +26,7 @@ class User {
     public function register($email, $pwd, $pwd2){
         if ($pwd != $pwd2) return;
         
-        //Dzięki linijce niżej mamy w $pwdHashed bezpiecznie hasło
+        //Dzięki linijce niżej mamy w $pwdHashed niby-bezpiecznie hasło (sha1 jest już przestarzałe, ale na potrzeby tej app jest ok)
         $pwdHashed = sha1($pwd); //32 znaki!
     }
     
@@ -34,7 +34,7 @@ class User {
         //W bazie szukamy osoby z tym loginem i z hasłem sha1($pwd)
         //Jeżeli znajdzie 1 osobę to zalogowany. Jak 0 to zły login lub hasło.
         
-        //W sesji przechowuj informacje!
+        //W sesji przechowujemy informacje!
         
         $_SESSION['email'] = $email;
         $_SESSION['pwd'] = $sha1Pwd;
