@@ -32,7 +32,7 @@ class User {
 //    public function register($email, $pwd, $pwd2){
 //        if ($pwd != $pwd2) return;
 //        
-//        //Dzięki linijce niżej mamy w $pwdHashed niby-bezpiecznie hasło (sha1 jest już przestarzałe, ale na potrzeby tej app jest ok)
+//        
 //        $pwdHashed = sha1($pwd); //32 znaki!
 //    }
 
@@ -85,7 +85,7 @@ class User {
             return '*Taki użytkownik już jest zarejestrowany';
         } 
         if(filter_var($email, FILTER_VALIDATE_EMAIL) == false || strlen($email) > 100) {
-            return '*Nieprawidłowy format e-mail lub za długi ciąg znaków';
+            return '*Nieprawidłowy format e-mail i/lub za długi ciąg znaków';
         } 
         
         return TRUE;
@@ -94,8 +94,8 @@ class User {
     
     public function validatePassword($pass1, $pass2) {
         
-	if( (strlen($pass1) < 8) || (strlen($pass1) > 100) ) {
-		return  '*Hasło musi posiadać od 8 do 100 znaków';
+	if( (strlen($pass1) < 8) || (strlen($pass1) > 30) ) {
+		return  '*Hasło musi posiadać od 8 do 30 znaków';
         }
         
         if ($pass1 != $pass2) {
