@@ -32,7 +32,7 @@ if(isset($_POST['email'])) {
     if($passwordValidation === TRUE && $emailValidation === TRUE) {
         $user->setPassword($pass1);
         $user->addUser($conn);   
-        $_SESSION['register_done'] = 'Rejestracja udana. Teraz możesz się zalogować';
+        $_SESSION['register_done'] = TRUE;
         header('Location: ./login.php');
     } 
     

@@ -49,14 +49,20 @@ class User {
     
     }
     
-    public function login($email, $sha1Pwd){
-        //W bazie szukamy osoby z tym loginem i z hasłem sha1($pwd)
-        //Jeżeli znajdzie 1 osobę to zalogowany. Jak 0 to zły login lub hasło.
+    public function login(mysqli $conn, $email, $password){
         
-        //W sesji przechowujemy informacje!
-        
-        $_SESSION['email'] = $email;
-        $_SESSION['pwd'] = $sha1Pwd;
+        $sql = "SELECT * FROM `user` WHERE email='$email'";
+        $result = $conn->query($sql);
+        if($result->num_rows === 0) {
+            return false;
+        } else {
+            $row = $result->fetch_assoc();
+            if($row['email'] === $email && password_verify($password, $row['password'])) {
+                $_SESSION['logged'] = TRUE;
+                return TRUE;
+            }
+        }
+    
     }
     
     public function autoLogin(){

@@ -1,32 +1,30 @@
 <?php
 session_start();
+
+require_once './src/functions/functions.php';
+redirectIfLoggedIn();
+
 require_once './src/classes/autoload.php';
-require_once './src/function/function.php';
+if(isset($_POST['email']) && $_POST['password']) {
+    $conn = DataBase::connect();
+    $user = new User;
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    if($user->login($conn, $email, $password)) {
+        header('Location: ./home.php');
+    }
+}
 
-//próba zalog tak-> red
-
-$conn = DataBase::connect();
-
-//include_once './top.inc.php';
-//
-//if ($user->isLogged()){
-//    header('Location: index.php');
-//}
-//
-//
-////Tutaj już odbieramy dane:
-//if(isset($_POST['email'])) {
-//    $email = $_POST['email'];
-//    $pwd = sha1($_POST['pwd']);
-//    $user->login($email, $pwd);
-//
-//   
-//}
 include './templates/header.php';
 
+//info: when You have been logged out
+if(isset($_SESSION['logout'])) {
+    echo '<h3>Zostałeś poprawnie wylogowany</h3>';
+    unset($_SESSION['logout']);
+}
 // 
 if(isset($_SESSION['register_done'])) {
-    echo '<h3>' . $_SESSION['register_done'] . '</h3>';
+    echo '<h3>Rejestracja udana. Teraz możesz się zalogować</h3>';
     unset($_SESSION['register_done']);
 }
 ?>
@@ -41,7 +39,7 @@ if(isset($_SESSION['register_done'])) {
                             </div>
                             <div class="form-group">
 				<!--<label for="password">Hasło</label>-->
-				<input type="text" name="password" class="form-control input-lg"  id="password" placeholder="tu wpisz hasło">
+                                <input type="password" name="password" class="form-control input-lg"  id="password" placeholder="tu wpisz hasło">
                             </div>
                         
                     
