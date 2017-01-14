@@ -1,8 +1,7 @@
 <?php
 session_start();
+require_once './templates/header.php';
 if(isset($_SESSION['logged']) && ($_SESSION['logged']) === TRUE) {
-    unset($_SESSION['logged']);
-    $_SESSION['logout'] = TRUE;
+    echo '<h3> Wylogowałeś/aś się</h3>';
 }
-
-header("Location: ./login.php");
+session_destroy();

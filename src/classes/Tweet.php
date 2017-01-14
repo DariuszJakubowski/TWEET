@@ -3,15 +3,15 @@
 class Tweet
 {
     private $id;
-    private $user_email;
+    private $id_user;
     private $text;
 
 
     function __construct()
     {
         $this->id = -1;
-        $this->user_email;
-        $this->text;
+        $this->id_user = -1;
+        $this->text = '';
     }
 
 
@@ -23,21 +23,7 @@ class Tweet
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserEmail()
-    {
-        return $this->user_email;
-    }
-
-    /**
-     * @param mixed $user_email
-     */
-    public function setUserEmail($user_email)
-    {
-        $this->user_email = $user_email;
-    }
+    
 
     /**
      * @return mixed
@@ -54,5 +40,32 @@ class Tweet
     {
         $this->text = $text;
     }
-
+    
+    public function addText(mysqli $conn, $id_user, $post) {
+        
+        $sql = "INSERT INTO tweet(id_user, text) VALUES( ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('is', $this->id_user, $this->text);
+        $this->id_user = $id_user;
+        $this->text = $post;
+       
+        $stmt->execute();
+        $conn = DataBase::disconnect();
+       
+        return TRUE;
+    }
+    
+    public function getAllMyTweets(mysqli $conn, $connected_user) {
+        
+        $sql = "SELECT tweet.text AS tweet, user.email AS user FROM tweet INNER JOIN user ON tweet.id_user=user.id WHERE id_user=$connected_user";
+        
+        return  $conn->query($sql);
+//        if($result->num_rows > 0) {
+//            while ($row = $result->fetch_assoc()) {
+//                echo '<p>' . $row['tweet'] . ': ' . $row['user'] . '</p>';
+//            }
+//            
+//        }
+        
+    }
 }

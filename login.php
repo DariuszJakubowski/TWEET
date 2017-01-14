@@ -5,24 +5,20 @@ require_once './src/functions/functions.php';
 redirectIfLoggedIn();
 
 require_once './src/classes/autoload.php';
-if(isset($_POST['email']) && $_POST['password']) {
+if(isset($_POST['email']) && isset($_POST['password']) ) {
     $conn = DataBase::connect();
     $user = new User;
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     if($user->login($conn, $email, $password)) {
+        $_SESSION['id_user'] = $user->getId();
         header('Location: ./home.php');
     }
 }
 
 include './templates/header.php';
 
-//info: when You have been logged out
-if(isset($_SESSION['logout'])) {
-    echo '<h3>Zostałeś poprawnie wylogowany</h3>';
-    unset($_SESSION['logout']);
-}
-// 
+//info: when You have been registered yet
 if(isset($_SESSION['register_done'])) {
     echo '<h3>Rejestracja udana. Teraz możesz się zalogować</h3>';
     unset($_SESSION['register_done']);
@@ -52,4 +48,3 @@ if(isset($_SESSION['register_done'])) {
 
 
 </div>
-

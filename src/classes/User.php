@@ -12,12 +12,16 @@ class User {
         $this->email = '';
         $this->password = '';
     }
+    
+    function getId() {
+        return $this->id;
+    }
             
     function getEmail() {
         return $this->email;
     }
 
-    function getPwd() {
+    function getPassword() {
         return $this->password;
     }
 
@@ -45,19 +49,21 @@ class User {
        
         $stmt->execute();
         
-         
-    
     }
     
     public function login(mysqli $conn, $email, $password){
         
         $sql = "SELECT * FROM `user` WHERE email='$email'";
         $result = $conn->query($sql);
+   
         if($result->num_rows === 0) {
             return false;
         } else {
             $row = $result->fetch_assoc();
             if($row['email'] === $email && password_verify($password, $row['password'])) {
+                $this->id = $row['id'];
+                $this->email = $row['email'];
+                $this->password = $row['password'];
                 $_SESSION['logged'] = TRUE;
                 return TRUE;
             }
@@ -71,12 +77,12 @@ class User {
         $this->login($_SESSION['email'], $_SESSION['pwd']);
     }
     
-    public function logout(){
-        $_SESSION['email'] = null;
-        $_SESSION['pwd'] = null;
-        
-        session_destroy();
-    }
+//    public function logout(){
+//        $_SESSION['email'] = null;
+//        $_SESSION['pwd'] = null;
+//        
+//        session_destroy();
+//    }
     
     public function isLogged(){
         return !is_null($_SESSION['email'])/* + isset */;
