@@ -1,5 +1,4 @@
 <?php
-//include_once '../config.php';
 
 class DataBase {
 
@@ -9,7 +8,7 @@ class DataBase {
         self::$conn = new mysqli('localhost', 'root', 'adorno', 'tweet');
         mysqli_set_charset(self::$conn, 'UTF8');
         if (self::$conn->connect_error) {
-            die("Error: " . self::$conn->connect_errno);
+            die("Error: " . self::$conn->connect_error);
         }
         return self::$conn;
     }

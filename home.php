@@ -46,11 +46,12 @@ echo <<<END
         </div>
     </div>
 
-\n
 END;
     }
-    echo '</div>';
+    echo '</div><hr>';
 }
 
 
 $conn = DataBase::disconnect();
+
+require_once './templates/footer.php';

@@ -3,6 +3,7 @@
 }
 body{
     background-image: url('../img/ignasi_pattern_s.png');
+    font-family: sans-serif;
     
 }    
 
@@ -10,9 +11,7 @@ footer {
     background-color: #000;
     color: #fff;
     padding: 15px;
-
-
-    margin-top: -3px;
+     margin-top: -3px;
   
 }
    
@@ -42,3 +41,7 @@ a:hover{
     padding: 8px;
 }
 */
+  .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }

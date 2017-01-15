@@ -30,21 +30,33 @@ if(isset($_SESSION['register_done'])) {
 			<fieldset>
                             <legend><h3>Logowanie</h3></legend>
                             <div class="form-group">
-				<!--<label for="email">Email</label>-->
-				<input type="email" name="email" class="form-control input-lg"  placeholder="tu wpisz swój email">
+				<input type="email" name="email" class="form-control input-lg"  placeholder="E-mail">
                             </div>
                             <div class="form-group">
-				<!--<label for="password">Hasło</label>-->
-                                <input type="password" name="password" class="form-control input-lg"  id="password" placeholder="tu wpisz hasło">
+                                <input type="password" name="password" class="form-control input-lg"  id="password" placeholder="Hasło">
                             </div>
-                        
-                    
+                            
+<?php
+if(isset($_SESSION['error_login'])) {
+echo <<<END
+                            <div class="form-group">
+                                <p class='error'>*Niepoprawny email lub/i hasło</p>
+                            </div>
+END;
+}
+unset($_SESSION['error_login']);
+?>
+                            
                         <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg">zaloguj</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">zaloguj</button>
                         </div>
+                        
 			</fieldset>
                     <p><a href="./register.php">Nie masz konta. Zarejestruj się!</a></p>
 		</form>
 
 
 </div>
+
+<?php
+require_once './templates/footer.php';

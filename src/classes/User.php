@@ -32,13 +32,6 @@ class User {
     function setPassword($password) {
         $this->password = $password; 
     }
-    
-//    public function register($email, $pwd, $pwd2){
-//        if ($pwd != $pwd2) return;
-//        
-//        
-//        $pwdHashed = sha1($pwd); //32 znaki!
-//    }
 
     public function addUser(mysqli $conn) {
         
@@ -66,16 +59,19 @@ class User {
                 $this->password = $row['password'];
                 $_SESSION['logged'] = TRUE;
                 return TRUE;
+            } else {
+                $_SESSION['error_login'] = TRUE;
+                return FALSE;
             }
         }
     
     }
     
-    public function autoLogin(){
-        session_start();
-        
-        $this->login($_SESSION['email'], $_SESSION['pwd']);
-    }
+//    public function autoLogin(){
+//        session_start();
+//        
+//        $this->login($_SESSION['email'], $_SESSION['pwd']);
+//    }
     
 //    public function logout(){
 //        $_SESSION['email'] = null;

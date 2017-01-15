@@ -54,8 +54,7 @@ require_once './templates/header.php';
             <label><h3>Rejestracja</h3></label>
             
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" name="email" class="form-control input-lg" id="email" placeholder="Wpisz email"
+                <input type="email" name="email" class="form-control input-lg" id="email" placeholder="E-mail"
                        <?php if(isset($email)) echo "value=\"$email\""; ?> required>
 
                 <?php
@@ -66,8 +65,7 @@ require_once './templates/header.php';
 		?>
             </div>
             <div class="form-group">
-                <label for="pwd">Hasło:</label>
-                <input type="password" name="reg_pass1" class="form-control input-lg" id="pwd" placeholder="Wpisz hasło" required>
+                <input type="password" name="reg_pass1" class="form-control input-lg" placeholder="Hasło" required>
 		<?php
 		if(isset($_SESSION['error_password'])){
                     echo '<h5 class="error">' . $_SESSION['error_password'] . '</h5>';
@@ -76,12 +74,10 @@ require_once './templates/header.php';
 		?>
             </div>
             <div class="form-group">
-                <label for="pwd">Powtórz hasło:</label>
-                <input type="password" name="reg_pass2" class="form-control input-lg" placeholder="Wpisz hasło" required>
+                <input type="password" name="reg_pass2" class="form-control input-lg" placeholder="Powtórz hasło" required>
             </div>
             <div class="form-group">
-                <input type="submit" value="zarejestruj" class="btn btn-success btn-lg">
-                <input type="reset" value="wyczyść" class="btn btn-danger btn-lg">
+                <input type="submit" value="zarejestruj" class="btn btn-success btn-block btn-lg">
             </div>
         </fieldset>
         <p><a href="./login.php">Zaloguj się!</a></p>

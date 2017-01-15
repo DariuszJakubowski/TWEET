@@ -2,11 +2,11 @@
 <div style="clear: both;"></div>
 
 
-<footer  class="container-fluid footer text-center" >
-    <p>footer SQUEK-TWEET 2017</p>    
+<footer  class="footer  container-fluid text-center" >
+    <!--.navbar-fixed-bottom-->
+    <p>SQUEK-TWEET 2017</p>    
 </footer>
 
-<!-- end id='wrapper' -->
-</div>
+
 </body>
 </html>
