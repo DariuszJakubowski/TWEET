@@ -47,6 +47,7 @@ class Tweet
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('is', $this->id_user, $this->text);
         $this->id_user = $id_user;
+        // xss filtering function
         $this->text = htmlspecialchars($post, ENT_QUOTES, 'UTF-8');
        
         $stmt->execute();
@@ -56,10 +57,16 @@ class Tweet
     }
     
     public function getAllMyTweets(mysqli $conn, $connected_user) {
-        
+        $myTweets = [];
         $sql = "SELECT tweet.text AS tweet, user.email AS user FROM tweet INNER JOIN user ON tweet.id_user=user.id WHERE id_user=$connected_user";
-        
-        return  $conn->query($sql);
-        
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $myTweets[] = ['my_email' => $row['user'], 'my_text' => $row['tweet']];
+            }
+            return $myTweets;
+        } else {
+            return FALSE;
+        }
     }
 }

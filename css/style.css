@@ -1,6 +1,4 @@
-*{
-    margin: 0;
-}
+
 body{
     background-image: url('../img/ignasi_pattern_s.png');
     font-family: sans-serif;
@@ -8,10 +6,10 @@ body{
 }    
 
 footer {
-    background-color: #000;
+    background-color: #111;
     color: #fff;
     padding: 15px;
-     margin-top: -3px;
+
   
 }
    

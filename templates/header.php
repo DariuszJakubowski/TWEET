@@ -31,7 +31,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="./home.php">Mój SquekTweet<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="./home.php">Moje wpisy</a></li>
-            <li><a href="./edit.php">Ustawienia</a></li>
+            <li><a href="./editPass.php">Zmiana hasła</a></li>
             <!--<li><a href="#">param ciam</a></li>-->
           </ul>
         <li><a href="./showAllUsers.php">Użytkownicy</a></li>
@@ -47,5 +47,4 @@
 
 <!-- end navigation -->    
 
-<div id="content">
-       
+<div id="content" class="container-fluid">

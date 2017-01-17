@@ -28,11 +28,10 @@ require_once './src/classes/autoload.php';
 $conn = DataBase::connect();
 $tweet = new Tweet();
 
-$result = $tweet->getAllMyTweets($conn, $_SESSION['id_user']);
-
-if($result->num_rows > 0) {
-    echo '<div class=\'container\'>';
-    while ($row = $result->fetch_assoc()) {
+if($result = $tweet->getAllMyTweets($conn, $_SESSION['id_user'])){
+    
+echo '<div class=\'container\'>';
+foreach ($result as $row) {
         
 echo <<<END
 
@@ -41,14 +40,14 @@ echo <<<END
             <img src="./img/empty_awatar.jpg" class="media-obiect img-responsive" alt="empty awatar" />
         </a>
         <div class='media-body'>
-            <h3 class='media-heading'>{$row['user']}</h3>
-            <p>{$row['tweet']}</p>
+            <h3 class='media-heading'>{$row['my_email']}</h3>
+            <p>{$row['my_text']}</p>
         </div>
     </div>
 
 END;
     }
-    echo '</div><hr>';
+echo '</div>';
 }
 
 

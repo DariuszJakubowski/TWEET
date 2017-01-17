@@ -24,18 +24,47 @@ class User {
     function getPassword() {
         return $this->password;
     }
-
-    function setEmail($email) {
+    
+    function getAllUsers(mysqli $conn) {
+        $users = [];
+        $result = $conn->query('SELECT id, email FROM `user`');
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $newUser = new User;
+                $newUser->id = $row['id'];
+                $newUser->email = $row['email'];
+                $users[] = $newUser;
+            }
+            
+        }
+        return $users;
+    }
+                function setEmail($email) {
         $this->email = $email;
     }
 
     function setPassword($password) {
         $this->password = $password; 
     }
+    
+    public function loadFromDB(mysqli $conn, $id_user) {
+        $userToReturn = NULL;
+        $result = $conn->query("SELECT * FROM `user` WHERE id={$id_user}");
+        if($result->num_rows === 1) {
+            
+            $row = $result->fetch_assoc();
+            $userToReturn = new User();
+            $userToReturn->id = $id_user;
+            $userToReturn->email = $row['email'];
+            $userToReturn->password = $row['password'];
+            
+        }
+        return $userToReturn;
+    }
 
     public function addUser(mysqli $conn) {
         
-        $hashedPassword = $this->hashPassword($this->password);
+        $hashedPassword = $this->hashPassword(trim($this->password));
         $sql = "INSERT INTO user ( email, password) VALUES( ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss', $this->email, $hashedPassword);
@@ -63,10 +92,18 @@ class User {
                 $_SESSION['error_login'] = TRUE;
                 return FALSE;
             }
-        }
-    
+        }    
     }
     
+    public function changePassword(mysqli $conn, $password, $id) {
+        $this->password = trim($this->hashPassword($password));     
+        $sql = "UPDATE `user` SET password='$this->password'  WHERE id={$id}";
+        if($conn->query($sql)) {
+            return TRUE;
+        } 
+    }
+
+
 //    public function autoLogin(){
 //        session_start();
 //        
