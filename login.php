@@ -16,11 +16,11 @@ if(isset($_POST['email']) && isset($_POST['password']) ) {
     }
 }
 
-include './templates/header.php';
+require './templates/header.php';
 
-//info: when You have been registered yet
+//confirmation message: when You have been registered
 if(isset($_SESSION['register_done'])) {
-    echo '<h3>Rejestracja udana. Teraz możesz się zalogować</h3>';
+    echo '<hr><h3>Rejestracja udana. Teraz możesz się zalogować</h3>';
     unset($_SESSION['register_done']);
 }
 ?>

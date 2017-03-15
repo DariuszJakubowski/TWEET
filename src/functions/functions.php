@@ -8,6 +8,10 @@ function redirectIfNotLogged() {
 
 function redirectIfLoggedIn(){
     if(isset($_SESSION['logged'])){
-        header("Location: ./home.php");
+        header('Location: ./home.php');
     }
+}
+
+function redirectHome() {
+    header('Location: ./home.php');
 }

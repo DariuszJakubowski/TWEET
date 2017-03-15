@@ -3,23 +3,23 @@
 //możliwość komentowania 
 session_start();
 require_once './src/functions/functions.php';
-
 redirectIfNotLogged();
-
-
 require_once './src/classes/autoload.php';
 
 $conn = DataBase::connect();
 $user = new User();
-$allUsers = $user->getAllUsers($conn);
+$allUsers = $user->getUsersActivityInfo($conn);
+
 require_once './templates/header.php';
-foreach ($allUsers as $oneUser) {
-echo <<<END
-<div>
-    <a href="./showUser.php?id={$oneUser->getId()}">{$oneUser->getEmail()}</a>
-</div>
-END;
+echo '<ul class=\'list-group col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 \'>'
+    . '<h1>Lista użytkowników:</h1>';
+foreach ($allUsers as $sinlgeUser) {
+    echo   "<li class='list-group-item'>"
+        . "<a href='./showUser.php?id={$sinlgeUser['id_user']}'>{$sinlgeUser['email']}</a> "
+        . "<span class='badge'>{$sinlgeUser['number_of_tweets']}</span>"
+        . "</li>";    
 }
+echo '</ul>';
 
 $conn = DataBase::disconnect();
-
+require './templates/footer.php';
