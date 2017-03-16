@@ -10,6 +10,6 @@
 - Responsive Web Design using HTML/CSS/Bootstrap
 - frontend js, jQuery
 
-[![Screenshots](_prtScr/example.jpg)]
+[![Screenshots](_prtScr/example0.jpg)(_prtScr/example1.jpg)(_prtScr/example2.jpg)]
 
 
