@@ -20,8 +20,6 @@ include './templates/header.php';
 <div style="clear: both;"></div>
 <hr>
 <?php
-//tu będzie pojedynczy tweet z możliwością komentowania
-
 
 require_once './src/classes/autoload.php';
 if(!empty($_POST['comment_text']) && isset($_GET['id_tweet'])) {

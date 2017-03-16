@@ -12,6 +12,10 @@ class Comment
     public function getText() {
         return $this->text;
     }
+    
+    public function getId_user() {
+        return $this->id_user;
+    }
 
     public function setText($text) {
         $this->text = $text;
@@ -23,6 +27,26 @@ class Comment
 
     function setId_tweet($id_tweet) {
         $this->id_tweet = $id_tweet;
+    }
+    
+    //zwraca tablicę asocjacyjną, gdzie kluczami są id_tweet => [obiekty..]
+    public function loadAllComments(mysqli $conn, $id_user) {
+        $allComments = [];
+        $result = $conn->query("SELECT * FROM comment WHERE id_tweet IN "
+                . "(SELECT tweet.id FROM tweet WHERE id_user={$id_user}) "
+                . "ORDER BY comment.id_tweet");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $comment = new Comment;
+                $comment->id = $row['id'];
+                $comment->text = $row['text'];
+                $comment->id_user = $row['id_user'];
+                $comment->id_tweet = $row['id_tweet'];
+                $comment->creation_date = $row['creation_date'];
+                $allComments[$row['id_tweet']][] = $comment;
+            }            
+        }
+        return $allComments;
     }
 
     public function addComment(mysqli $conn) {

@@ -64,9 +64,10 @@ class User {
         $result = $conn->query("SELECT user.id, "
                 . "user.email, "
                 . "COUNT(id_user) AS number_of_tweets "
-                . "FROM user LEFT JOIN tweet "
+                . "FROM user left JOIN  tweet "
                 . "ON user.id=tweet.id_user "
-                . "GROUP BY id_user");
+                . "GROUP BY id_user "
+                . "ORDER BY number_of_tweets DESC");
         if($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
                $users[] = [
@@ -78,10 +79,17 @@ class User {
         }
         return $users;          
     }
+    
+    public function showEmail(mysqli $conn, $id) {
+        $result = $conn->query("SELECT email FROM `user` WHERE id={$id}");
+        if($row = $result->fetch_assoc()){
+            return $row['email'];
+        }     
+    }
 
     public function addUser(mysqli $conn) { 
         $hashedPassword = $this->hashPassword(trim($this->password));
-        $stmt = $conn->prepare("INSERT INTO user (email, password) "
+        $stmt = $conn->prepare("INSERT INTO `user` (email, password) "
                 . "VALUES( ?, ?)");
         $stmt->bind_param('ss', $this->email, $hashedPassword);
         $stmt->execute(); 

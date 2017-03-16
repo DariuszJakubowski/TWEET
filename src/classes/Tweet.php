@@ -51,7 +51,6 @@ class Tweet
             $tweet = new Tweet();
             while ($row = $result->fetch_assoc()) {              
                 $tweet->id = $id;
-                $tweet->id_user = $row['id_user'];
                 $tweet->text = $row['text'];
             }
             return $tweet;
@@ -67,10 +66,11 @@ class Tweet
                 . "tweet.text AS tweet,"
                 . " user.email AS user "
                 . "FROM tweet INNER JOIN user ON tweet.id_user=user.id "
-                . "WHERE id_user = {$id_user}";
+                . "WHERE id_user = {$id_user} "
+                . "ORDER BY tweet.id DESC";
         $result = $conn->query($sql);
         if($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_assoc()) {
                 $tweets[] = [
                                'id_tweet' => $row['id_tweet'],
                                'id_user' => $row['id_user'],

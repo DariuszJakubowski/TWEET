@@ -43,3 +43,23 @@ a:hover{
       margin-bottom: 0;
       border-radius: 0;
     }
+    
+ .avatar-circle {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+.initials {
+  position: relative;
+  top: 25px; /* 25% of parent */
+  font-size: 50px; /* 50% of parent */
+  line-height: 50px; /* 50% of parent */
+  color: #ddd;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+}

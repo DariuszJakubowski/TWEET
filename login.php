@@ -12,6 +12,7 @@ if(isset($_POST['email']) && isset($_POST['password']) ) {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     if($user->login($conn, $email, $password)) {
         $_SESSION['id_user'] = $user->getId();
+        $_SESSION['email'] = $user->getEmail();
         header('Location: ./home.php');
     }
 }

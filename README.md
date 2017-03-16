@@ -1,8 +1,7 @@
 ## TWEET
-# Mock Twitter
-# my first application in OOP PHP & MySQL
+# Mock Twitter - my first application in OOP PHP & MySQL
 
-Features:
+### Features:
 - registration
 - login and logout using session
 - edit profile
@@ -11,5 +10,6 @@ Features:
 - Responsive Web Design using HTML/CSS/Bootstrap
 - frontend js, jQuery
 
+[![Screenshots](_prtScr/example.jpg)]
 
 

@@ -82,6 +82,9 @@ require_once './templates/header.php';
         </fieldset>
         <p><a href="./login.php">Zaloguj się!</a></p>
     </form>
+    <?php
+                require './templates/footer.php';
+                ?>
 </div>
 </body>
 </html>
