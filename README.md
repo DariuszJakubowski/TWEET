@@ -9,8 +9,6 @@
 - delete account
 - CRUD actions (add, edit, delete tweets and comments)
 - Responsive Web Design using HTML/CSS/Bootstrap
-- frontend js, jQuery
+- in front-end javascript/jQuery
 
-[![Screenshot](_prtScr/example0.jpg)]
-[![Screenshot](_prtScr/example1.jpg)]
-[![Screenshot](_prtScr/example2.jpg)]
+![Screenshot](_prtScr/example1.jpg)

@@ -22,6 +22,14 @@ class User {
     public function getPassword() {
         return $this->password;
     }
+        
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password; 
+    }
     
     public function getAllUsers(mysqli $conn) {
         $users = [];
@@ -36,14 +44,7 @@ class User {
         }
         return $users;
     }
-    
-    public function setEmail($email) {
-        $this->email = $email;
-    }
 
-    public function setPassword($password) {
-        $this->password = $password; 
-    }
     
     public function loadFromDB(mysqli $conn, $id_user) {
         $userToReturn = null;
@@ -95,6 +96,19 @@ class User {
         $stmt->execute(); 
     }
     
+    public function delete(mysqli $conn, $id, $email, $password) {
+        $result = $conn->query("SELECT * FROM `user` WHERE id = {$id}");
+        if($result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            if($row['id'] === $id && 
+                    $row['email'] === $email && 
+                    password_verify($password, $row['password'])) {
+                
+                return $conn->query("DELETE FROM `user` WHERE id = {$id}");
+               }
+        }
+    }
+
     public function login(mysqli $conn, $email, $password){
         
         $result = $conn->query("SELECT * FROM `user` WHERE email='{$email}'");
@@ -130,7 +144,7 @@ class User {
         if($result->num_rows === 1) {
             return '*Taki użytkownik już jest zarejestrowany';
         } 
-        if(filter_var($email, FILTER_VALIDATE_EMAIL) == false || 
+        if(filter_var($email, FILTER_VALIDATE_EMAIL) === false || 
                 strlen($email) > 100) {
             return '*Nieprawidłowy format e-mail i/lub za długi ciąg znaków';
         } 
@@ -146,8 +160,7 @@ class User {
         }
         if ($pass1 != $pass2) {
 		return  '*Podałaś/eś inne hasła';
-	}
-        
+	}       
         return true;
     }
     

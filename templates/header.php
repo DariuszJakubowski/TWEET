@@ -36,6 +36,7 @@
           <ul class="dropdown-menu">
             <li><a href="./home.php">Moje wpisy</a></li>
             <li><a href="./editPass.php">Zmiana hasła</a></li>
+            <li><a href="./deleteAccount.php">Likwidacja konta</a></li>
           </ul>
         <li><a href="./showAllUsers.php">Użytkownicy</a></li>
         <li><a href="./logout.php">Wyloguj</a></li>
